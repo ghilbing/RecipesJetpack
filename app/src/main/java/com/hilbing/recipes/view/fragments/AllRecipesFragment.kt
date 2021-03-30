@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.hilbing.recipes.R
 import com.hilbing.recipes.application.RecipeApplication
 import com.hilbing.recipes.databinding.FragmentAllRecipesBinding
 import com.hilbing.recipes.view.activities.AddUpdateDishActivity
+import com.hilbing.recipes.view.activities.MainActivity
 import com.hilbing.recipes.view.adapters.RecipeAdapter
 import com.hilbing.recipes.viewmodel.RecipeViewModelFactory
 import com.hilbing.recipes.viewmodel.RecipesViewModel
@@ -54,6 +56,20 @@ class AllRecipesFragment : Fragment() {
                     mBinding.tvNoDishesAddedYet.visibility = View.VISIBLE
                 }
             }
+        }
+    }
+
+    fun recipeDetails(){
+        findNavController().navigate(AllRecipesFragmentDirections.actionNavigationAllRecipesToRecipeDetailsFragment())
+        if(requireActivity() is MainActivity){
+            (activity as MainActivity?)?.hideBottomNavigationView()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(requireActivity() is MainActivity){
+            (activity as MainActivity?)?.showBottomNavigationView()
         }
     }
 

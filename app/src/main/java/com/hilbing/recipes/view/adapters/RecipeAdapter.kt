@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hilbing.recipes.databinding.ItemDishLayoutBinding
 import com.hilbing.recipes.model.entities.Recipes
+import com.hilbing.recipes.view.fragments.AllRecipesFragment
 
 class RecipeAdapter(private val fragment: Fragment): RecyclerView.Adapter<RecipeAdapter.ViewHolder>() {
 
@@ -27,6 +28,10 @@ class RecipeAdapter(private val fragment: Fragment): RecyclerView.Adapter<Recipe
         val recipe = recipes[position]
         Glide.with(fragment).load(recipe.image).into(holder.ivDishImage)
         holder.ivTitle.setText(recipe.title)
+        holder.itemView.setOnClickListener{
+            if(fragment is AllRecipesFragment)
+                fragment.recipeDetails()
+        }
 
     }
 

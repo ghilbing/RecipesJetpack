@@ -9,7 +9,11 @@
         android:id="@+id/navigation_all_recipes"
         android:name="com.hilbing.recipes.view.fragments.AllRecipesFragment"
         android:label="@string/title_all_recipes"
-        tools:layout="@layout/fragment_all_recipes" />
+        tools:layout="@layout/fragment_all_recipes" >
+        <action
+            android:id="@+id/action_navigation_all_recipes_to_recipeDetailsFragment"
+            app:destination="@id/recipeDetailsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_favorite_recipes"
@@ -22,4 +26,10 @@
         android:name="com.hilbing.recipes.view.fragments.RandomRecipeFragment"
         android:label="@string/title_random_recipe"
         tools:layout="@layout/fragment_random_recipe" />
+
+    <fragment
+        android:id="@+id/recipeDetailsFragment"
+        android:name="com.hilbing.recipes.view.fragments.RecipeDetailsFragment"
+        android:label="@string/details"
+        tools:layout="@layout/fragment_recipe_details" />
 </navigation>
