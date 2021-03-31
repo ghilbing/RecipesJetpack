@@ -9,22 +9,22 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.hilbing.recipes.R
-import com.hilbing.recipes.viewmodel.NotificationsViewModel
+import com.hilbing.recipes.viewmodel.RandomRecipeViewModel
 
 class RandomRecipeFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
+    private lateinit var randomRecipeViewModel: RandomRecipeViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
-                ViewModelProvider(this).get(NotificationsViewModel::class.java)
+        randomRecipeViewModel =
+                ViewModelProvider(this).get(RandomRecipeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_random_recipe, container, false)
         val textView: TextView = root.findViewById(R.id.text_notifications)
-        notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
+        randomRecipeViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root

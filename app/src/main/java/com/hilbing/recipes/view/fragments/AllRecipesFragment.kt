@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.hilbing.recipes.R
 import com.hilbing.recipes.application.RecipeApplication
 import com.hilbing.recipes.databinding.FragmentAllRecipesBinding
+import com.hilbing.recipes.model.entities.Recipes
 import com.hilbing.recipes.view.activities.AddUpdateDishActivity
 import com.hilbing.recipes.view.activities.MainActivity
 import com.hilbing.recipes.view.adapters.RecipeAdapter
@@ -59,12 +60,14 @@ class AllRecipesFragment : Fragment() {
         }
     }
 
-    fun recipeDetails(){
-        findNavController().navigate(AllRecipesFragmentDirections.actionNavigationAllRecipesToRecipeDetailsFragment())
+    fun recipeDetails(recipe: Recipes){
+        findNavController().
+        navigate(AllRecipesFragmentDirections.actionNavigationAllRecipesToRecipeDetailsFragment(recipe))
         if(requireActivity() is MainActivity){
             (activity as MainActivity?)?.hideBottomNavigationView()
         }
     }
+
 
     override fun onResume() {
         super.onResume()

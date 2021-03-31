@@ -31,5 +31,10 @@
         android:id="@+id/recipeDetailsFragment"
         android:name="com.hilbing.recipes.view.fragments.RecipeDetailsFragment"
         android:label="@string/details"
-        tools:layout="@layout/fragment_recipe_details" />
+        tools:layout="@layout/fragment_recipe_details">
+        <argument
+            android:name="recipeDetails"
+            app:argType="com.hilbing.recipes.model.entities.Recipes"
+            />
+    </fragment>
 </navigation>

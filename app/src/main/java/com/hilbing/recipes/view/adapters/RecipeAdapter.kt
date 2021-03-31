@@ -30,7 +30,7 @@ class RecipeAdapter(private val fragment: Fragment): RecyclerView.Adapter<Recipe
         holder.ivTitle.setText(recipe.title)
         holder.itemView.setOnClickListener{
             if(fragment is AllRecipesFragment)
-                fragment.recipeDetails()
+                fragment.recipeDetails(recipe)
         }
 
     }

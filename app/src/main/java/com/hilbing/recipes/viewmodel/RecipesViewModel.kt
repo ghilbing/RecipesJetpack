@@ -7,11 +7,18 @@ import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
 class RecipesViewModel(private val repository: RecipesRepository) : ViewModel() {
+
     fun insert(recipe: Recipes) = viewModelScope.launch {
         repository.insertRecipeData(recipe)
     }
 
     val allRecipesList: LiveData<List<Recipes>> = repository.allRecipesList.asLiveData()
+
+    fun update(recipe: Recipes) = viewModelScope.launch {
+        repository.updateRecipeData(recipe)
+    }
+
+    val favoriteRecipesList : LiveData<List<Recipes>> = repository.favoritesRecipes.asLiveData()
 
 }
 
