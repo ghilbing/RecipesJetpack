@@ -18,4 +18,11 @@ class RecipesRepository(private val recipesDao: RecipesDAO) {
     }
 
     val favoritesRecipes : Flow<List<Recipes>> = recipesDao.getFavoritesRecipesList()
+
+    @WorkerThread
+    suspend fun deleteRecipe(recipe: Recipes){
+        recipesDao.deleteRecipe(recipe)
+    }
+
+    fun filteredRecipesList(value: String): Flow<List<Recipes>> = recipesDao.getFilteredRecipesList(value)
 }

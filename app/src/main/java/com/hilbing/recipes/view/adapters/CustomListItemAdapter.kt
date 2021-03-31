@@ -3,12 +3,15 @@ package com.hilbing.recipes.view.adapters
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.hilbing.recipes.databinding.ItemCustomListBinding
 import com.hilbing.recipes.view.activities.AddUpdateDishActivity
+import com.hilbing.recipes.view.fragments.AllRecipesFragment
 
 class CustomListItemAdapter(
     private val activity: Activity,
+    private val fragment: Fragment?,
     private val listItems: List<String>,
     private val selection: String):
 RecyclerView.Adapter<CustomListItemAdapter.ViewHolder>(){
@@ -28,6 +31,9 @@ RecyclerView.Adapter<CustomListItemAdapter.ViewHolder>(){
         holder.itemView.setOnClickListener{
             if(activity is AddUpdateDishActivity){
                 activity.selectedListItem(item, selection)
+            }
+            if(fragment is AllRecipesFragment){
+                fragment.filterSelection(item)
             }
         }
     }

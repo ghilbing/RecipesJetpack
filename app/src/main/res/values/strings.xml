@@ -69,4 +69,13 @@
     <string name="lbl_estimate_cooking_time">The approx time required to cook the dish is %1$s minutes.</string>
     <string name="added_to_favorites">Added to Favorites</string>
     <string name="removed_from_favorites">Removed from Favorites</string>
+    <string name="label_no_favorite_recipes_added_yet">No favorite recipes added yet</string>
+    <string name="edit_recipe">Edit Recipe</string>
+    <string name="delete_recipe">Delete Recipe</string>
+    <string name="update_recipe">Update Recipe</string>
+    <string name="are_you_sure_you_want_to_delete_this_recipe">Are you sure you want to delete %1$s recipe?</string>
+    <string name="yes">Yes</string>
+    <string name="deleted_recipe">Recipe Deleted</string>
+    <string name="no">No</string>
+    <string name="action_filter">Select item to filter</string>
 </resources>

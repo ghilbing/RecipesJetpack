@@ -1,9 +1,6 @@
 package com.hilbing.recipes.model.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.hilbing.recipes.model.entities.Recipes
 import kotlinx.coroutines.flow.Flow
 
@@ -21,6 +18,13 @@ interface RecipesDAO {
 
     @Query("SELECT * FROM RECIPES_TABLE WHERE favorite_dish = 1")
     fun getFavoritesRecipesList() : Flow<List<Recipes>>
+
+    @Delete
+    fun deleteRecipe(recipe: Recipes)
+
+    @Query("SELECT * FROM RECIPES_TABLE WHERE type = :filterType")
+    fun getFilteredRecipesList(filterType: String): Flow<List<Recipes>>
+
 
 
 

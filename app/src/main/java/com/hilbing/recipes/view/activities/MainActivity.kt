@@ -23,11 +23,11 @@ class MainActivity : AppCompatActivity() {
 
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
-        mNavController = NavController(this)
+        mNavController = findNavController(R.id.nav_host_fragment)
 
         mBinding.navView.setupWithNavController(mNavController)
 
-        mNavController = findNavController(R.id.nav_host_fragment)
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(

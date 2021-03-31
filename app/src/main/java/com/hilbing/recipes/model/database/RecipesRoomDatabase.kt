@@ -25,6 +25,7 @@ abstract class RecipesRoomDatabase: RoomDatabase() {
                     "recipes_database"
                 )
                     .fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
                     .build()
                 INSTANCE = instance
                 //return instance

@@ -19,7 +19,11 @@
         android:id="@+id/navigation_favorite_recipes"
         android:name="com.hilbing.recipes.view.fragments.FavoriteRecipesFragment"
         android:label="@string/title_favorite"
-        tools:layout="@layout/fragment_favorite_recipes" />
+        tools:layout="@layout/fragment_favorite_recipes" >
+        <action
+            android:id="@+id/action_navigation_favorite_recipes_to_recipeDetailsFragment"
+            app:destination="@id/recipeDetailsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_random_recipe"

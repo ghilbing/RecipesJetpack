@@ -58,6 +58,7 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var mBinding: ActivityAddUpdateDishBinding
     private var mImagePath: String = ""
     private lateinit var mCustomListDialog: Dialog
+    private var mRecipeDetails: Recipes? = null
 
     private val mRecipeViewModel : RecipesViewModel by viewModels{
         RecipeViewModelFactory((application as RecipeApplication).repository)
@@ -68,6 +69,29 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         mBinding = ActivityAddUpdateDishBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         setupActionBar()
+
+        if(intent.hasExtra(Constants.EXTRA_DISH_DETAILS)){
+            mRecipeDetails = intent.getParcelableExtra(Constants.EXTRA_DISH_DETAILS)
+        }
+
+        mRecipeDetails?.let {
+            if(it.id != 0){
+                mImagePath = it.image
+                Glide.with(this@AddUpdateDishActivity)
+                    .load(mImagePath)
+                    .centerCrop()
+                    .into(mBinding.ivDishImage)
+
+                mBinding.etTitle.setText(it.title)
+                mBinding.etType.setText(it.type)
+                mBinding.etCategory.setText(it.category)
+                mBinding.etIngredients.setText(it.ingredients)
+                mBinding.etCookingTime.setText(it.cookingTime)
+                mBinding.etDirectionToCook.setText(it.directionToCook)
+                mBinding.btnAddDish.text = resources.getString(R.string.update_recipe)
+            }
+        }
+
         mBinding.ivAddDishImage.setOnClickListener(this)
         mBinding.etType.setOnClickListener(this)
         mBinding.etCookingTime.setOnClickListener(this)
@@ -77,6 +101,16 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun setupActionBar() {
         setSupportActionBar(mBinding.toolbarAddDishActivity)
+        if(mRecipeDetails != null && mRecipeDetails!!.id != 0){
+            supportActionBar?.let{
+                it.title = resources.getString(R.string.add_dish)
+
+            }
+        } else {
+            supportActionBar?.let{
+                it.title = resources.getString(R.string.update_recipe)
+            }
+        }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         mBinding.toolbarAddDishActivity.setNavigationOnClickListener {
             onBackPressed()
@@ -153,19 +187,39 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
                 Toast.makeText(this@AddUpdateDishActivity, resources.getString(R.string.enter_directions), Toast.LENGTH_SHORT).show()
             }
             else -> {
+
+                var recipeId = 0
+                var imageSource = Constants.DISH_IMAGE_SOURCE_LOCAL
+                var favoriteDish = false
+
+                mRecipeDetails?.let{
+                    if(it.id != 0){
+                        recipeId = it.id
+                        imageSource = it.imageSource
+                        favoriteDish = it.favoriteDish
+                    }
+                }
+
                 val recipeDishDetails = Recipes(
                     mImagePath,
-                    Constants.DISH_IMAGE_SOURCE_LOCAL,
+                    imageSource,
                     title,
                     type,
                     category,
                     ingredients,
                     cookingTimeInMinutes,
                     cookingDirection,
-                    false
+                    favoriteDish,
+                    recipeId
                 )
-                mRecipeViewModel.insert(recipeDishDetails)
-                Toast.makeText(this@AddUpdateDishActivity, "You successfully added your recipe", Toast.LENGTH_SHORT).show()
+
+                if(recipeId == 0){
+                    mRecipeViewModel.insert(recipeDishDetails)
+                    Toast.makeText(this@AddUpdateDishActivity, "You successfully added your recipe", Toast.LENGTH_SHORT).show()
+                } else {
+                    mRecipeViewModel.update(recipeDishDetails)
+                    Toast.makeText(this@AddUpdateDishActivity, "You successsfully updated your recipe", Toast.LENGTH_SHORT).show()
+                }
                 finish()
             }
         }
@@ -243,7 +297,7 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
         mCustomListDialog.setContentView(binding.root)
         binding.tvTitle.text = title
         binding.rvList.layoutManager = LinearLayoutManager(this)
-        val adapter = CustomListItemAdapter(this, itemsList, selection)
+        val adapter = CustomListItemAdapter(this, null, itemsList, selection)
         binding.rvList.adapter = adapter
         mCustomListDialog.show()
 
