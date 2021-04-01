@@ -76,6 +76,11 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
     implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofit_version"
+    //rxjava3
+    def rxjava3_version = '3.0.0'
+    implementation "io.reactivex.rxjava3:rxandroid:$rxjava3_version"
+    implementation "io.reactivex.rxjava3:rxjava:$rxjava3_version"
+
 
 
 
